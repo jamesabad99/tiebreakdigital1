@@ -4,10 +4,12 @@ let videoSection = document.getElementsByClassName("hero_video-content")[0];
 let videoContainer = document.getElementsByClassName("hero_video-wrapper")[0];
 let video = document.getElementsByClassName("hero_content-bottom")[0];
 let navBar = document.getElementsByClassName("nav-bar_component")[0];
+let heroImage = document.getElementById("hero-image");
 let heroButton1 = document.getElementById("hero-button-1");
 let heroButton2 = document.getElementById("hero-button-2");
 let preloader = document.getElementById("preloader");
 let pageWrapper = document.getElementsByClassName("page-wrapper")[0];
+let player;
 
 let tl = gsap.timeline();
 const state = Flip.getState(videoSection, videoContainer, video);
@@ -23,8 +25,12 @@ tl.set(videoContainer, {
   width: "50%",
 });
 
+tl.set(heroImage, {
+  opacity: 100,
+});
+
 tl.from(videoContainer, {
-  y: "150%",
+  y: "200%",
   duration: 1.5,
   ease: "power4.out",
 });
@@ -42,7 +48,7 @@ tl.to(videoContainer, {
       duration: 1.5,
       ease: "power4.inOut",
     },
-    "<"
+    "<",
   )
   .to(
     video,
@@ -51,7 +57,7 @@ tl.to(videoContainer, {
       duration: 1.5,
       ease: "power4.inOut",
     },
-    "<"
+    "<",
   )
   .to(
     videoContainer,
@@ -60,7 +66,7 @@ tl.to(videoContainer, {
       duration: 1.5,
       ease: "power4.inOut",
     },
-    "<"
+    "<",
   );
 tl.from(
   navBar,
@@ -73,7 +79,7 @@ tl.from(
       preloaderDisplay();
     },
   },
-  "<1"
+  "<1",
 );
 tl.from(
   heroTitle.lines,
@@ -84,7 +90,7 @@ tl.from(
     stagger: { each: 0.015 },
     ease: "power4.Out",
   },
-  "<"
+  "<",
 );
 tl.from(
   heroParagraph.lines,
@@ -95,7 +101,7 @@ tl.from(
     stagger: { each: 0.015 },
     ease: "power4.Out",
   },
-  "<0.1"
+  "<0.1",
 );
 tl.from(
   heroButton1,
@@ -105,7 +111,7 @@ tl.from(
     duration: 0.25,
     ease: "power4.Out",
   },
-  "<0.1"
+  "<0.1",
 );
 tl.from(
   heroButton2,
@@ -114,9 +120,34 @@ tl.from(
     y: -50,
     duration: 0.25,
     ease: "power4.Out",
+    onComplete: () => {
+      let videoOpener = document.querySelector(".play-button_wrapper");
+      videoOpener.style.display = "flex";
+      player = new Plyr("#player");
+    },
   },
-  "<"
+  "<",
 );
+
+// END GSAP
+
+//VIDEO PLAYER START
+
+document.addEventListener("DOMContentLoaded", function () {
+  const playButtonWrapper = document.querySelector(".play-button_wrapper");
+  const videoModal = document.querySelector(".video_modal");
+  const closeModal = document.querySelector(".video_close-button");
+  playButtonWrapper.addEventListener("click", function () {
+    videoModal.style.display = "flex";
+    player.play();
+  });
+  closeModal.addEventListener("click", function () {
+    videoModal.style.display = "none";
+    player.pause();
+  });
+});
+
+//VIDEO PLAYER END
 
 const swiper = new Swiper(".swiper", {
   // Optional parameters
@@ -254,72 +285,72 @@ function applyStyles(styleName) {
     document.documentElement.style.setProperty("--color--main-bg", "#989898");
     document.documentElement.style.setProperty(
       "--color--main-button-bg",
-      "#6154f6"
+      "#6154f6",
     );
     document.documentElement.style.setProperty(
       "--color--tennis-court",
-      "#929292"
+      "#929292",
     );
     document.documentElement.style.setProperty(
       "--color--text-highlight",
-      "#6154f6"
+      "#6154f6",
     );
     // ... other style properties
   } else if (styleName == "Australia Open") {
     document.documentElement.style.setProperty("--color--main-bg", "#1C91D0");
     document.documentElement.style.setProperty(
       "--color--main-button-bg",
-      "#092442"
+      "#092442",
     );
     document.documentElement.style.setProperty(
       "--color--tennis-court",
-      "#177AB0"
+      "#177AB0",
     );
     document.documentElement.style.setProperty(
       "--color--text-highlight",
-      "#092442"
+      "#092442",
     );
   } else if (styleName == "Roland Garros") {
     document.documentElement.style.setProperty("--color--main-bg", "#812C19");
     document.documentElement.style.setProperty(
       "--color--main-button-bg",
-      "#092442"
+      "#092442",
     );
     document.documentElement.style.setProperty(
       "--color--tennis-court",
-      "#812C19"
+      "#812C19",
     );
     document.documentElement.style.setProperty(
       "--color--text-highlight",
-      "#FFD36F"
+      "#FFD36F",
     );
   } else if (styleName == "Wimbledon") {
     document.documentElement.style.setProperty("--color--main-bg", "#006634");
     document.documentElement.style.setProperty(
       "--color--main-button-bg",
-      "#54008C"
+      "#54008C",
     );
     document.documentElement.style.setProperty(
       "--color--tennis-court",
-      "#006634"
+      "#006634",
     );
     document.documentElement.style.setProperty(
       "--color--text-highlight",
-      "#FFD36F"
+      "#FFD36F",
     );
   } else if (styleName == "US Open") {
     document.documentElement.style.setProperty("--color--main-bg", "#3C5C4B");
     document.documentElement.style.setProperty(
       "--color--main-button-bg",
-      "#8E0A06"
+      "#8E0A06",
     );
     document.documentElement.style.setProperty(
       "--color--tennis-court",
-      "#3E3658"
+      "#3E3658",
     );
     document.documentElement.style.setProperty(
       "--color--text-highlight",
-      "#FFD36F"
+      "#FFD36F",
     );
   }
 }
