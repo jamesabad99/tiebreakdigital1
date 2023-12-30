@@ -49,24 +49,6 @@ tl.to(videoContainer, {
       ease: "power4.inOut",
     },
     "<",
-  )
-  .to(
-    video,
-    {
-      borderRadius: "0.25rem",
-      duration: 1.5,
-      ease: "power4.inOut",
-    },
-    "<",
-  )
-  .to(
-    videoContainer,
-    {
-      borderRadius: "0.25rem",
-      duration: 1.5,
-      ease: "power4.inOut",
-    },
-    "<",
   );
 tl.from(
   navBar,
